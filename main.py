@@ -1,6 +1,22 @@
 import json
+import os
 
 tasks = []
+
+FILENAME = "tasks.json"
+
+def save_tasks():
+    with open(FILENAME, "w") as f:
+        json.dump(tasks, f, indent= 3)
+
+
+def load_tasks():
+    global tasks
+    if os.path.exists(FILENAME):
+        with open(FILENAME, "r") as f:
+            tasks = json.load(f)
+    else:
+        tasks = []
 
 def add_task():
     task_num = int(input("How many tasks do you wanna add? :3 \n"))
@@ -9,6 +25,8 @@ def add_task():
         task = input("Enter your task: ")
         tasks.append({"task" : task, "done" : False})
         print("Your task has been added~")
+    
+    save_tasks()
 
 def show_tasks():
     if not tasks:
@@ -34,6 +52,8 @@ def delete_task():
     if 1 <= del_index <= len(tasks):
         del tasks[del_index - 1 ]                       #since indexing starts from 0 butttt, we want it to start from 1 :3
         print("Task deleted! :3")
+
+        save_tasks()
     
     else:
         print("Invalid task number :<")
@@ -47,14 +67,13 @@ def mark_as_done():
     if 1 <= mark_index <= len(tasks):
         tasks[mark_index - 1]["done"] = True
         print("Your task has been marked as done uwu")
+
+        save_tasks()
     
     else:
         print("Invalid task number :<")
 
 def menu():
-    
-    while True:
-
         print("\n\n₊˚ ✧ ━━━━⊱ To-do List ⊰━━━━ ✧ ₊˚")
         print("1. Add a Task")
         print("2. Show Tasks")
@@ -62,6 +81,14 @@ def menu():
         print("4. Delete a Task")
         print("5. Exit")
 
+
+
+def main():
+
+    load_tasks()
+
+    while True:
+        menu()
         choice = int(input())
 
         if choice == 1:
@@ -83,10 +110,12 @@ def menu():
 
         else:
             print("Invalid input. Try again :<")
+            continue
 
-
-def main():
-    menu()
+        RE = input("Do you wanna go to the main menu :3 (y/n)\n").lower()
+        if RE != "y":
+            print("BaiBai :3")
+            break
 
 
 
