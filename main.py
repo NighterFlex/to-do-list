@@ -8,7 +8,6 @@ FILENAME = "tasks.json"
 def save_tasks():
     with open(FILENAME, "w") as f:
         json.dump(tasks, f, indent= 3)
-
 def load_tasks():
     global tasks
     if os.path.exists(FILENAME):
