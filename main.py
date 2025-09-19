@@ -8,6 +8,8 @@ FILENAME = "tasks.json"
 def save_tasks():
     with open(FILENAME, "w") as f:
         json.dump(tasks, f, indent= 3)
+
+
 def load_tasks():
     global tasks
     if os.path.exists(FILENAME):
@@ -15,6 +17,7 @@ def load_tasks():
             tasks = json.load(f)
     else:
         tasks = []
+
 
 def add_task():
     task_num = int(input("How many tasks do you wanna add? :3 \n"))
@@ -25,6 +28,7 @@ def add_task():
         print("Your task has been added~")
     
     save_tasks()
+
 
 def show_tasks():
     if not tasks:
@@ -41,6 +45,7 @@ def show_tasks():
             status = "nay ✗"
 
         print(f"{j+1}. {tasks[j]['task']} {status}")
+
 
 def delete_task():
     
@@ -71,14 +76,15 @@ def mark_as_done():
     else:
         print("Invalid task number :<")
 
+
 def menu():
+        
         print("\n\n₊˚ ✧ ━━━━⊱ To-do List ⊰━━━━ ✧ ₊˚")
         print("1. Add a Task")
         print("2. Show Tasks")
         print("3. Mark Task as Done")
         print("4. Delete a Task")
         print("5. Exit")
-
 
 
 def main():
